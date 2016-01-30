@@ -1,0 +1,46 @@
+//Styles that involve our pokemon
+.battleScene {
+
+    max-width: 800px;
+    min-height: 400px;
+    width: auto;
+    height: auto;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+
+    background-image: url('../images/battlescene1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.pokemonContainer {
+
+    position: relative;
+
+    .pokemon {
+        width: 200px;
+        height: 200px;
+
+        img {
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .player {
+        position: absolute;
+        top: 220px;
+        left: 100px;
+        transform: rotateY(180deg); /* Standard syntax */
+    }
+
+    .wild {
+        position: absolute;
+        top: 90px;
+        right: 100px;
+    }
+
+}

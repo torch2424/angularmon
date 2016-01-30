@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
   api.get('pokemon', pokemonId).then(function(resPokemon) {
 
         //Next get our sprites, build an array
-        var reqSprites = [resPokemon[0].sprites[0], resPokemon[0].sprites[0]];
+        var reqSprites = [resPokemon[0].sprites[0], resPokemon[1].sprites[0]];
 
         //Now request
     	api.get(reqSprites).then(function(resSprites) {

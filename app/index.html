@@ -20,25 +20,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <a class="navbar-brand" href="#/">angularmon</a>
-          </div>
-
-          <div class="collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div ng-include src="'views/nav.html'"></div>
 
     <div class="container">
     <div ng-view=""></div>
@@ -46,7 +28,7 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p><span class="glyphicon glyphicon-heart"></span> By Aaron Turner with the help of the <a href = "http://pokeapi.co/">Pokeapi</a></p>
       </div>
     </div>
 
@@ -77,6 +59,8 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/pokemon.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
         <!-- endbuild -->
 </body>
 </html>
