@@ -141,6 +141,31 @@ angular.module('angularmonApp')
       }
     ]
 
+    //Timeout for animations
+    $timeout(function () {
+
+        //Set up our scope player and enemy
+        $scope.player = initPokemon[0];
+        $scope.enemy = initPokemon[1];
+
+        //Our Meter percentages
+        $scope.playerHealth = {
+            hp: $scope.player.hp,
+            percent: "100%"
+        };
+        $scope.enemyHealth = {
+            hp: $scope.enemy.hp,
+            percent: "100%"
+        };
+
+        //Our attacking boolean
+        $scope.noAttack = false;
+
+        //Our message to the player
+        $scope.message = "What will you do?"
+
+    }, 10);
+
     //First get our pokemon
     $scope.init = function() {
 
@@ -161,28 +186,15 @@ angular.module('angularmonApp')
 
         })
     }
-    $timeout(function () {
-
-        //Set up our scope player and enemy
-        $scope.player = initPokemon[0];
-        $scope.enemy = initPokemon[1];
-
-        //Our Meter percentages
-        $scope.playerHealth = {
-            hp: $scope.player.hp,
-            percent: "100%"
-        };
-        $scope.enemyHealth = {
-            hp: $scope.enemy.hp,
-            percent: "100%"
-        };
-
-    }, 1);
     //$scope.init();
 
     //Function to use an attack
     $scope.attack = function(moveIndex) {
 
+        //No attacking
+        $scope.noAttack = true;
+
+        //You attack the enemy
         //Calculate the damage
         var damage = BattleManager.calculateDamage($scope.player.moves[moveIndex], $scope.player, $scope.enemy);
 
@@ -193,6 +205,38 @@ angular.module('angularmonApp')
         if($scope.enemyHealth.hp <= 0) $scope.enemyHealth.percent = 0;
         else $scope.enemyHealth.percent = Math.ceil($scope.enemyHealth.hp / $scope.enemy.hp * 100) + "%";
 
+        //display the message
+        $scope.message = $scope.player.name + " does " + damage + " damage to " + $scope.enemy.name;
+
+        //Timeout for a second then let the enemy attack
+        $timeout(function () {
+
+            //Get a random move of the enemy
+            var enemyMove = Math.floor((Math.random() * 4))
+
+            //Calculate the damage
+            var damage = BattleManager.calculateDamage($scope.enemy.moves[enemyMove], $scope.enemy, $scope.player);
+
+            //Do the math to our meters
+            $scope.playerHealth.hp = $scope.playerHealth.hp - damage;
+
+            //Apply the style to our enemy meter
+            if($scope.playerHealth.hp <= 0) $scope.playerHealth.percent = 0;
+            else $scope.playerHealth.percent = Math.ceil($scope.playerHealth.hp / $scope.player.hp * 100) + "%";
+
+            //display the message
+            $scope.message = $scope.enemy.name + " does " + damage + " damage to " + $scope.player.name;
+
+            //timeout before showing the message and table again
+            $timeout(function () {
+
+                //Our attacking boolean
+                $scope.noAttack = false;
+
+                //Our message to the player
+                $scope.message = "What will you do?"
+            }, 1500);
+        }, 1500);
 
     }
 

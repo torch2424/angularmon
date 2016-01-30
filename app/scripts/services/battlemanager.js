@@ -30,7 +30,7 @@ angular.module('angularmonApp')
             var levelCalc = (2 * level + 10) / 250;
             var attackDef = (attacker.attack / defender.defense);
 
-            return (levelCalc * attackDef * move.power + 2) * modifier;
+            return Math.floor((levelCalc * attackDef * move.power + 2) * modifier);
         },
 
         isGameOver: gameOver

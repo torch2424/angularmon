@@ -1,4 +1,6 @@
 
+<button ng-audio="../songs/redblue.mp3" volume="0.5" loop="true">Music?</button>
+
 <h1 class = "center">A wild {{enemy.name}} has appeared!</h1>
 
 <!-- Our Scene -->
@@ -32,12 +34,14 @@
 
 </div>
 
-<h1 class = "center">What will you do?</h1>
+<h2 class = "center">{{message}}</h2>
 
 <!-- Our Selectable Moves -->
 <div class="battleButtons">
 
-    <table class = "buttonTable">
+    <table
+    ng-hide="noAttack"
+    class = "buttonTable">
       <tr>
         <td
         ng-click= "attack(0)">
