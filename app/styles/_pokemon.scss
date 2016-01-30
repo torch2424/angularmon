@@ -50,25 +50,27 @@
     }
 }
 
-.player {
-    position: absolute;
-    top: 220px;
-    left: 100px;
-}
-
-.wild {
-    position: absolute;
-    top: 90px;
-    right: 100px;
-}
-
 .pokemonContainer {
 
     position: relative;
+    width: 200px;
+    height: 200px;
+
+    &.wild {
+        margin-left: auto;
+        margin-right: 100px;
+        top: 50px;
+
+    }
+
+    &.player {
+        margin-left: 100px;
+    }
 
     .pokemon {
-        width: 200px;
-        height: 200px;
+
+        width: 100%;
+        height: 100%;
 
         img {
             background-size: 100% 100%;
@@ -78,15 +80,27 @@
 }
 
 //Animations for the pokemon container
-.pokemonContainer.ng-hide-remove {
+.pokemon.ng-hide-remove {
     @extend .animated;
     @extend .lightSpeedIn;
 }
 
-.pokemonContainer.ng-hide-add {
+.meter.ng-hide-remove {
+    @extend .animated;
+    @extend .zoomInUp;
+}
+
+
+.pokemon.ng-hide-add {
     @extend .animated;
     @extend .bounceOut;
 }
+
+.meter.ng-hide-add {
+    @extend .animated;
+    @extend .hinge;
+}
+
 
 .meter {
 
@@ -102,7 +116,7 @@
     span {
 
       display: block;
-      height: 100%;
+      height: 20px;
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
       border-top-left-radius: 20px;

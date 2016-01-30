@@ -26,6 +26,21 @@
     <div ng-view=""></div>
     </div>
 
+    <!-- Our loading spinner for the app -->
+  <div ng-controller = "SpinnerCtrl">
+      <div class = "darkOverlay"
+      ng-if="loading.isLoading()">
+      </div>
+      <div class = "loadingContainer"
+      ng-if="loading.isLoading()">
+
+          <h2>Walking Through Tall Grass...</h2>
+
+          <div class = "spinnerAnimation">
+          </div>
+      </div>
+  </div>
+
     <div class="footer">
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span> By Aaron Turner with the help of the <a href = "http://pokeapi.co/">Pokeapi</a></p>
@@ -63,6 +78,8 @@
         <script src="scripts/services/pokemon.js"></script>
         <script src="scripts/controllers/nav.js"></script>
         <script src="scripts/services/battlemanager.js"></script>
+        <script src="scripts/controllers/spinner.js"></script>
+        <script src="scripts/services/loadingspinner.js"></script>
         <!-- endbuild -->
 </body>
 </html>

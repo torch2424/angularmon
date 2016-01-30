@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
 
     //Get a random number between 1 and
     //max num pokemon sprites (719)
-    var pokemonId = Math.floor((Math.random() * 719) + 1) + ',' +         Math.floor((Math.random() * 719) + 1);
+    var pokemonId = Math.floor((Math.random() * 719) + 1) + ',' +  Math.floor((Math.random() * 719) + 1);
 
   api.get('pokemon', pokemonId).then(function(resPokemon) {
 
@@ -50,7 +50,21 @@ router.get('/', function(req, res, next) {
 
             api.get(resPokemon[0].moves).then(function(resMovesOne) {
 
+                if(!resMovesOne ||
+                resMovesOne.length < 4) {
+                    res.status(500).json({
+                          msg: "Could not ping the pokeapi for moves!"
+                    });
+                }
+
                 api.get(resPokemon[1].moves).then(function(resMovesTwo) {
+
+                    if(!resMovesTwo ||
+                    resMovesTwo.length < 4) {
+                        res.status(500).json({
+                              msg: "Could not ping the pokeapi for moves!"
+                        });
+                    }
 
                     //Now that we have EVERYTHING, start building our response
 

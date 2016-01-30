@@ -10,7 +10,7 @@
 angular.module('angularmonApp')
   .service('PokemonApi', function ($resource) {
 
-      return $resource('http://mangorabo.ngrok.kondeo.com:8080/angularmon', {}, {
+      return $resource('http://localhost:3000/angularmon', {}, {
       get: {
         method: 'GET',
         params: {},

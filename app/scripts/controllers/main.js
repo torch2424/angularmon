@@ -9,7 +9,8 @@
  */
 angular.module('angularmonApp')
   .controller('MainCtrl', function ($scope,
-      PokemonApi, BattleManager, $timeout) {
+      PokemonApi, BattleManager, $timeout,
+      loadingSpinner) {
 
     //For tests
     this.awesomeThings = [
@@ -144,26 +145,25 @@ angular.module('angularmonApp')
     //Timeout for animations
     $timeout(function () {
 
+        //start loading
+        loadingSpinner.startLoading();
+
         //Set up our scope player and enemy
         $scope.player = initPokemon[0];
         $scope.enemy = initPokemon[1];
 
         //Our Meter percentages
         $scope.playerHealth = {
-            hp: $scope.player.hp,
-            percent: "100%"
+            hp: 0,
+            percent: "0%"
         };
         $scope.enemyHealth = {
-            hp: $scope.enemy.hp,
-            percent: "100%"
+            hp: 0,
+            percent: "0%"
         };
 
         //Our attacking boolean
-        $scope.noAttack = false;
-
-        //Our message to the player
-        $scope.message = "What will you do?"
-
+        $scope.noAttack = true;
     }, 10);
 
     //First get our pokemon
@@ -178,15 +178,30 @@ angular.module('angularmonApp')
             $scope.enemy = response[1];
 
             //Set our meter health
-            $scope.playerHealth.hp = $scope.player.hp;
-            $scope.enemyHealth.hp = $scope.enemy.hp;
+            $scope.playerHealth = {
+                hp: $scope.player.hp,
+                percent: "100%"
+            };
+            $scope.enemyHealth = {
+                hp: $scope.enemy.hp,
+                percent: "100%"
+            };
+
+            //stop loading
+            loadingSpinner.stopLoading();
+
+            //Our attacking boolean
+            $scope.noAttack = false;
+
+            //Our message to the player
+            $scope.message = "What will you do?"
         },
         //Errors
         function(error) {
 
         })
     }
-    //$scope.init();
+    $scope.init();
 
     //Function to use an attack
     $scope.attack = function(moveIndex) {
@@ -202,7 +217,17 @@ angular.module('angularmonApp')
         $scope.enemyHealth.hp = $scope.enemyHealth.hp - damage;
 
         //Apply the style to our enemy meter
-        if($scope.enemyHealth.hp <= 0) $scope.enemyHealth.percent = 0;
+        if($scope.enemyHealth.hp <= 0) {
+
+            //Kill the enemy
+            $scope.enemyHealth.percent = 0;
+
+            //Set the message to you win
+            $scope.message = "YOU WIN!!! Please reload the page to play again!";
+
+            //Return to get out of here
+            return;
+        }
         else $scope.enemyHealth.percent = Math.ceil($scope.enemyHealth.hp / $scope.enemy.hp * 100) + "%";
 
         //display the message
@@ -221,7 +246,17 @@ angular.module('angularmonApp')
             $scope.playerHealth.hp = $scope.playerHealth.hp - damage;
 
             //Apply the style to our enemy meter
-            if($scope.playerHealth.hp <= 0) $scope.playerHealth.percent = 0;
+            if($scope.playerHealth.hp <= 0) {
+
+                //you are dead
+                $scope.playerHealth.percent = 0;
+
+                //Set the message to you win
+                $scope.message = "you is faint...Please reload the page to play again!";
+
+                //Return to get out of here
+                return;
+            }
             else $scope.playerHealth.percent = Math.ceil($scope.playerHealth.hp / $scope.player.hp * 100) + "%";
 
             //display the message

@@ -1,35 +1,48 @@
 
-<button ng-audio="../songs/redblue.mp3" volume="0.5" loop="true">Music?</button>
+<div class = "center">
+    <button
+    ng-audio="../songs/redblue.mp3"
+    volume="0.5"
+    loop="true">Music?</button>
+</div>
 
-<h1 class = "center">A wild {{enemy.name}} has appeared!</h1>
+<h1
+class = "center"
+ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
 
 <!-- Our Scene -->
 <div class="battleScene">
 
     <!-- Our Pokemon Sprites -->
     <div
-    ng-show = "enemyHealth.hp > 0"
-    class = "pokemonContainer">
-        <div class="meter wild">
+    class = "pokemonContainer wild">
+        <div
+        ng-show = "enemyHealth.hp > 0"
+        class="meter animted">
             <span
             ng-style="{'width': enemyHealth.percent}"></span>
         </div>
-        <img ng-src="{{enemy.spriteUrl}}"
+        <img
+        ng-show = "enemyHealth.hp > 0"
+        ng-src="{{enemy.spriteUrl}}"
         alt = "Wild Pokemon!"
-        class = "pokemon wild"/>
+        class = "pokemon"/>
     </div>
 
     <div
-    ng-show = "playerHealth.hp > 0"
-    class = "pokemonContainer">
-        <div class="meter player">
+    class = "pokemonContainer player">
+        <div
+        ng-show = "playerHealth.hp > 0"
+        class="meter">
             <span
             ng-style="{'width': playerHealth.percent}"></span>
         </div>
 
-        <img ng-src="{{player.spriteUrl}}"
+        <img
+        ng-show = "playerHealth.hp > 0"
+        ng-src="{{player.spriteUrl}}"
         alt = "Go Pokemon!"
-        class = "pokemon player flip"/>
+        class = "pokemon flipped flipInY"/>
     </div>
 
 </div>

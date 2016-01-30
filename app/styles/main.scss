@@ -4,6 +4,7 @@
 @import 'animate';
 @import 'navbar';
 @import 'colors';
+@import 'loadingSpinner';
 @import 'pokemon';
 @import 'quickFixes';
 
@@ -32,6 +33,6 @@ body {
     text-align: center;
 }
 
-.flip {
+.flipped {
     transform: rotateY(180deg); /* Standard syntax */
 }

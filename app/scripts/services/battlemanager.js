@@ -17,7 +17,7 @@ angular.module('angularmonApp')
     var gameOver = false;
 
     //Default level for now
-    var level = 1;
+    var level = 12;
 
     //Default modifier to just random section for now
     var modifier = Math.floor((Math.random() * 15) + 85) / 100;
