@@ -8,7 +8,8 @@
  * Controller of the angularmonApp
  */
 angular.module('angularmonApp')
-  .controller('MainCtrl', function ($scope, PokemonApi) {
+  .controller('MainCtrl', function ($scope,
+      PokemonApi, BattleManager, $timeout) {
 
     //For tests
     this.awesomeThings = [
@@ -17,7 +18,6 @@ angular.module('angularmonApp')
       'Karma'
     ];
 
-    //Our test data
     var initPokemon = [
       {
         "name": "Bouffalant",
@@ -141,10 +141,6 @@ angular.module('angularmonApp')
       }
     ]
 
-    //Set up our scope player and enemy
-    $scope.player = initPokemon[0];
-    $scope.enemy = initPokemon[1];
-
     //First get our pokemon
     $scope.init = function() {
 
@@ -155,12 +151,49 @@ angular.module('angularmonApp')
             //Set our pokemon in scope
             $scope.player = response[0];
             $scope.enemy = response[1];
+
+            //Set our meter health
+            $scope.playerHealth.hp = $scope.player.hp;
+            $scope.enemyHealth.hp = $scope.enemy.hp;
         },
         //Errors
         function(error) {
 
         })
     }
+    $timeout(function () {
+
+        //Set up our scope player and enemy
+        $scope.player = initPokemon[0];
+        $scope.enemy = initPokemon[1];
+
+        //Our Meter percentages
+        $scope.playerHealth = {
+            hp: $scope.player.hp,
+            percent: "100%"
+        };
+        $scope.enemyHealth = {
+            hp: $scope.enemy.hp,
+            percent: "100%"
+        };
+
+    }, 1);
     //$scope.init();
+
+    //Function to use an attack
+    $scope.attack = function(moveIndex) {
+
+        //Calculate the damage
+        var damage = BattleManager.calculateDamage($scope.player.moves[moveIndex], $scope.player, $scope.enemy);
+
+        //Do the math to our meters
+        $scope.enemyHealth.hp = $scope.enemyHealth.hp - damage;
+
+        //Apply the style to our enemy meter
+        if($scope.enemyHealth.hp <= 0) $scope.enemyHealth.percent = 0;
+        else $scope.enemyHealth.percent = Math.ceil($scope.enemyHealth.hp / $scope.enemy.hp * 100) + "%";
+
+
+    }
 
   });

@@ -1,21 +1,65 @@
 
 <h1 class = "center">A wild {{enemy.name}} has appeared!</h1>
 
+<!-- Our Scene -->
 <div class="battleScene">
 
     <!-- Our Pokemon Sprites -->
-    <div class = "pokemonContainer">
+    <div
+    ng-show = "enemyHealth.hp > 0"
+    class = "pokemonContainer">
+        <div class="meter wild">
+            <span
+            ng-style="{'width': enemyHealth.percent}"></span>
+        </div>
         <img ng-src="{{enemy.spriteUrl}}"
         alt = "Wild Pokemon!"
         class = "pokemon wild"/>
     </div>
 
-    <div class = "pokemonContainer">
+    <div
+    ng-show = "playerHealth.hp > 0"
+    class = "pokemonContainer">
+        <div class="meter player">
+            <span
+            ng-style="{'width': playerHealth.percent}"></span>
+        </div>
+
         <img ng-src="{{player.spriteUrl}}"
         alt = "Go Pokemon!"
-        class = "pokemon player"/>
+        class = "pokemon player flip"/>
     </div>
 
 </div>
 
 <h1 class = "center">What will you do?</h1>
+
+<!-- Our Selectable Moves -->
+<div class="battleButtons">
+
+    <table class = "buttonTable">
+      <tr>
+        <td
+        ng-click= "attack(0)">
+        {{player.moves[0].name}}
+        </td>
+
+        <td
+        ng-click= "attack(1)">
+        {{player.moves[1].name}}
+        </td>
+      </tr>
+      <tr>
+          <td
+          ng-click= "attack(2)">
+          {{player.moves[2].name}}
+          </td>
+
+          <td
+          ng-click= "attack(3)">
+          {{player.moves[3].name}}
+          </td>
+      </tr>
+    </table>
+
+</div>

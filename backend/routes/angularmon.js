@@ -96,9 +96,9 @@ router.get('/', function(req, res, next) {
                                 if(ranMove == addedIndex[k]) added = true;
                             }
 
-                            //find moves with power greater than zero
+                            //find moves with power greater than one
                             if(!added &&
-                                pokeMoves[i][ranMove].power > 0) {
+                                pokeMoves[i][ranMove].power > 1) {
 
                                 //Add it to the pokemon
                                 pokemon[i].moves.push(pokeMoves[i][ranMove]);
