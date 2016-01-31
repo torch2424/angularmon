@@ -8,9 +8,10 @@
 @import 'pokemon';
 @import 'quickFixes';
 
-//General Styles
+//General/Page Styles
 html {
     height: 100%;
+    color: $standard;
 }
 
 body {
@@ -19,12 +20,24 @@ body {
 
     background-repeat: no-repeat;
     background-attachment: fixed;
-    //Gradient of sky to grass pokemon style
-    background: linear-gradient($sky, $grass);
+    background-color: $standardInverse;
+    color: $standard;
 }
 
-.navbar-default {
-    background-color: $transparent;
+.navbar {
+    color: $standardInverse;
+    background-color: $navBg;
+    border-color: $navBg;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    box-shadow: 0px 7px 15px $standard;
+
+    a {
+        color: $standardInverse !important;
+    }
+
+    //Shadow to look material
 }
 
 .center {
@@ -35,4 +48,22 @@ body {
 
 .flipped {
     transform: rotateY(180deg); /* Standard syntax */
+}
+
+.musicButton {
+
+    background-color: $grass;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: box-shadow 1s;
+
+    &:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
 }
