@@ -44,7 +44,7 @@ router.get('/', function(req, res, next) {
     var resPokemon = getPokemon(pokemonId);
 
     console.log(resPokemon);
-
+ 
     resPokemon.then(function() {
 
         console.log(resPokemon);
