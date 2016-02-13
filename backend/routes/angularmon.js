@@ -157,4 +157,27 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+
+//Function to grab a pokemon
+var getPokemon = function() {
+      api.get('pokemon', pokemonId).then(function(resPokemon) {
+
+          //Return the response
+          return resPokemon;
+      },
+      //Error, give status to the frontend
+      function(err) {
+          res.status(500).json({
+                msg: "Could not ping the pokeapi for sprite!"
+          });
+
+          //Return false
+          return false;
+      });
+
+}
+
+
+
 module.exports = router;
