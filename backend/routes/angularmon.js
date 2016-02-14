@@ -57,8 +57,6 @@ router.get('/', function(req, res, next) {
     //Get our pokemon
     var resPokemon = getPokemon(pokemonId);
 
-    console.log("Getting Some Pokemon...");
-
     resPokemon.then(function(resPokemon) {
 
         //Get Our moves
@@ -87,8 +85,6 @@ router.get('/', function(req, res, next) {
         pokemon[1].sp_def = resPokemon[1].sp_def;
         pokemon[0].speed = resPokemon[0].speed;
         pokemon[1].speed = resPokemon[1].speed;
-
-        console.log("Getting Some Pokemon Info...");
 
         //Call the rest of requried things
         Promise.all([resSprites, resMoves[0], resMoves[1]]).then(function(response) {
