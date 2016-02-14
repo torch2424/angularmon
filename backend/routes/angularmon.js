@@ -36,6 +36,20 @@ router.get('/', function(req, res, next) {
         }
     ];
 
+    //Also an emergency struggle move
+    var struggle = {
+        name: "Struggle",
+        id: 0,
+        resource_uri: 0,
+        created: 0,
+        modified: 0,
+        description: "Ran out of loop time (I mean PP)",
+        power: 50,
+        accuracy: 80,
+        category: "none",
+        pp: 200
+    }
+
     //Get a random number between 1 and
     //max num pokemon sprites (719)
     var pokemonId = Math.floor((Math.random() * 719) + 1) + ',' +  Math.floor((Math.random() * 719) + 1);
@@ -74,8 +88,19 @@ router.get('/', function(req, res, next) {
         pokemon[0].speed = resPokemon[0].speed;
         pokemon[1].speed = resPokemon[1].speed;
 
+        console.log("Getting Some Pokemon Info...");
+
         //Call the rest of requried things
         Promise.all([resSprites, resMoves[0], resMoves[1]]).then(function(response) {
+
+            //Check if any of our response is undefined
+            if(!response[0] ||
+            !response[1] ||
+            !response[2]) {
+
+                //Send an error
+                handleError();
+            }
 
             //Set our response to the correct values
             resSprites = response[0];
@@ -96,6 +121,9 @@ router.get('/', function(req, res, next) {
                 //An array of already added moves
                 var addedIndex = [];
 
+                //Create a counter of our while loop
+                var moveCount = 0;
+
                 //And we need four moves
                 while(pokemon[i].moves.length < 4) {
 
@@ -104,12 +132,21 @@ router.get('/', function(req, res, next) {
 
                     //Check if it was already added
                     var added = false;
+
                     for(var k = 0; k < addedIndex.length; k++) {
-                        if(ranMove == addedIndex[k]) added = true;
+
+                        //If that move index has already
+                        if(ranMove == addedIndex[k]) {
+
+                                //Break from this loop, and set added to true
+                                added = true;
+                                k = addedIndex.length;
+                        }
                     }
 
                     //find moves with power greater than one
                     if(!added &&
+                        pokeMoves[i][ranMove] &&
                         pokeMoves[i][ranMove].power > 1) {
 
                         //Add it to the pokemon
@@ -118,13 +155,33 @@ router.get('/', function(req, res, next) {
                         //Also, Add it to the added index
                         addedIndex.push(ranMove);
                     }
+
+                    //Increase our move counter
+                    moveCount++;
+
+                    //If we cant find a move simply return stuggle
+                    if(moveCount > 25) {
+                        //Push struggle to the pokemon
+                        while(pokemon[i].moves.length < 4) {
+                            pokemon[i].moves.push(struggle);
+                        }
+                    }
+
                 }
             }
 
-
             //FINALLY RETURN OUR POKEMON!
             res.send(pokemon);
+
+        }).catch(function(err) {
+
+            //Handler Error
+            handleError(err);
         });
+    }).catch(function(err) {
+
+        //Handler Error
+        handleError(err);
     });
 });
 
@@ -135,23 +192,6 @@ var getPokemon = function(pokemonId) {
 
     //Request from the api
       return api.get('pokemon', pokemonId);
-
-    //   .then(function(resPokemon) {
-    //
-    //       //Success
-    //       //Return the response
-    //       return resPokemon;
-    //   },
-    //   //Error, give status to the frontend
-    //   function(err) {
-    //       res.status(500).json({
-    //             msg: "Could not ping the pokeapi for the pokemon!!"
-    //       });
-    //
-    //       //Return false
-    //       return false;
-    //   });
-
 }
 
 
@@ -161,20 +201,6 @@ var getSprite = function(reqSprites) {
 
     //Request from the api
     return api.get(reqSprites);
-
-    // .then(function(resSprites) {
-    //
-    //     //Success
-    //     return resSprites;
-    // },
-    // //Error
-    // function(err) {
-    //     res.status(500).json({
-    //           msg: "Could not ping the pokeapi for sprites!"
-    //     });
-    //
-    //     return false;
-    // })
 }
 
 //Function to grab an array of moves
@@ -183,29 +209,29 @@ var getMoves = function(reqMoves) {
     //Request from the api
     //Was resPokemon[0].moves
     return api.get(reqMoves);
+}
 
-    // .then(function(resMoves) {
-    //
-    //     //Success
-    //     return resMoves;
-    // },
-    //
-    // //Error
-    // function(err) {
-    //     res.status(500).json({
-    //           msg: "Could not ping the pokeapi for moves!"
-    //     });
-    //
-    //     //Return false
-    //     return false;
-    // })
+//Function to handler our errors
+var handleError = function(err) {
 
-    // if(!resMovesOne ||
-    // resMovesOne.length < 4) {
-    //     res.status(500).json({
-    //           msg: "Could not ping the pokeapi for moves!"
-    //     });
-    // }
+    console.log("Pokemon Error!");
+
+    //First check if we have an error
+    if(err) {
+
+        console.log(err);
+        res.status(err.status).json({
+            msg: "Error: " + err.status + "Please check rest status codes for more information..."
+        });
+    }
+    else {
+
+        //We dont have an error must have gotten undefined
+        //Or it is a general error
+        res.status(500).json({
+            msg: "General error, or the pokeapi returned us undefined."
+        });
+    }
 }
 
 
