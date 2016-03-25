@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     var pokemon = [
         {
             name: "pokemon",
-            spriteUrl: "http://pokeapi.co/media/img/1.png",
+            pokedexId: "1",
             hp: 1,
             attack: 1,
             defense: 1,
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
         },
         {
             name: "pokemon",
-            spriteUrl: "http://pokeapi.co/media/img/1.png",
+            pokedexId: "1",
             hp: 1,
             attack: 1,
             defense: 1,
@@ -51,8 +51,8 @@ router.get('/', function(req, res, next) {
     }
 
     //Get a random number between 1 and
-    //max num pokemon sprites (719)
-    var pokemonId = Math.floor((Math.random() * 719) + 1) + ',' +  Math.floor((Math.random() * 719) + 1);
+    //max num pokemon sprites of Gen 5 (649)
+    var pokemonId = Math.floor((Math.random() * 649) + 1) + ',' +  Math.floor((Math.random() * 649) + 1);
 
     //Get our pokemon
     var resPokemon = getPokemon(pokemonId);
@@ -64,15 +64,11 @@ router.get('/', function(req, res, next) {
         resMoves[0] = getMoves(resPokemon[0].moves);
         resMoves[1] = getMoves(resPokemon[1].moves);
 
-        //Next get our sprites, build an array
-        var reqSprites = [resPokemon[0].sprites[0], resPokemon[1].sprites[0]];
-
-        //Get our sprites
-        var resSprites = getSprite(reqSprites);
-
         //Save our stats while we are waiting
         pokemon[0].name = resPokemon[0].name;
+        pokemon[0].pokedexId = resPokemon[0].pkdx_id;
         pokemon[1].name = resPokemon[1].name;
+        pokemon[1].pokedexId = resPokemon[1].pkdx_id;
         pokemon[0].hp = resPokemon[0].hp;
         pokemon[1].hp = resPokemon[1].hp;
         pokemon[0].attack = resPokemon[0].attack;
@@ -87,27 +83,23 @@ router.get('/', function(req, res, next) {
         pokemon[1].speed = resPokemon[1].speed;
 
         //Call the rest of requried things
-        Promise.all([resSprites, resMoves[0], resMoves[1]]).then(function(response) {
+        Promise.all([resMoves[0], resMoves[1]]).then(function(response) {
 
             //Check if any of our response is undefined
             if(!response[0] ||
-            !response[1] ||
-            !response[2]) {
+            !response[1]) {
 
                 //Send an error
                 handleError();
             }
 
             //Set our response to the correct values
-            resSprites = response[0];
-            resMoves[0] = response[1];
-            resMoves[1] = response[2];
+            //Sprites on the cleint
+            //resSprites = response[0];
+            resMoves[0] = response[0];
+            resMoves[1] = response[1];
 
             //Now that we have EVERYTHING, start building our response
-
-            //Save our image urls
-            pokemon[0].spriteUrl = "http://pokeapi.co" + resSprites[0].image
-            pokemon[1].spriteUrl = "http://pokeapi.co" + resSprites [1].image
 
             //Finally loop through and grab moves
             var pokeMoves = [resMoves[0], resMoves[1]];
@@ -193,6 +185,7 @@ var getPokemon = function(pokemonId) {
 
 //Function to grab a sprite
 //Pass an array to grab multipl sprites
+//But sprites now done on the clients
 var getSprite = function(reqSprites) {
 
     //Request from the api
@@ -216,7 +209,7 @@ var handleError = function(err) {
     if(err) {
 
         console.log(err);
-        res.status(err.status).json({
+        err.status(err.status).json({
             msg: "Error: " + err.status + "Please check rest status codes for more information..."
         });
     }
@@ -224,7 +217,7 @@ var handleError = function(err) {
 
         //We dont have an error must have gotten undefined
         //Or it is a general error
-        res.status(500).json({
+        err.status(500).json({
             msg: "General error, or the pokeapi returned us undefined."
         });
     }

@@ -9,7 +9,7 @@
 
 <h1
 class = "center"
-ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
+ng-show="enemyHealth.hp">A wild <i>{{enemy.name}}</i> has appeared!</h1>
 
 <!-- Our Scene -->
 <div class="battleScene">
@@ -25,7 +25,7 @@ ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
         </div>
         <img
         ng-show = "enemyHealth.hp > 0"
-        ng-src="{{enemy.spriteUrl}}"
+        ng-src="../images/pokemonGen5/{{enemy.pokedexId}}.png"
         alt = "Wild Pokemon!"
         class = "pokemon"/>
     </div>
@@ -41,7 +41,7 @@ ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
 
         <img
         ng-show = "playerHealth.hp > 0"
-        ng-src="{{player.spriteUrl}}"
+        ng-src="../images/pokemonGen5/back/{{player.pokedexId}}.png"
         alt = "Go Pokemon!"
         class = "pokemon flipInY"/>
     </div>

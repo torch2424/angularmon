@@ -22,7 +22,7 @@ angular.module('angularmonApp')
     var initPokemon = [
       {
         "name": "Bouffalant",
-        "spriteUrl": "http://pokeapi.co/media/img/626.png",
+        "pokedexId": "45",
         "hp": 95,
         "attack": 110,
         "defense": 95,
@@ -82,7 +82,7 @@ angular.module('angularmonApp')
       },
       {
         "name": "Machop",
-        "spriteUrl": "http://pokeapi.co/media/img/66.png",
+        "pokedexId": "154",
         "hp": 70,
         "attack": 80,
         "defense": 50,
