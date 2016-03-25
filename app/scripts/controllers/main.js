@@ -22,7 +22,7 @@ angular.module('angularmonApp')
     var initPokemon = [
       {
         "name": "Bouffalant",
-        "pokedexId": "45",
+        "pokedexId": 626,
         "hp": 95,
         "attack": 110,
         "defense": 95,
@@ -82,7 +82,7 @@ angular.module('angularmonApp')
       },
       {
         "name": "Machop",
-        "pokedexId": "154",
+        "pokedexId": 154,
         "hp": 70,
         "attack": 80,
         "defense": 50,
@@ -142,32 +142,29 @@ angular.module('angularmonApp')
       }
     ]
 
-    //Timeout for animations
-    $timeout(function () {
 
-        //start loading
-        loadingSpinner.startLoading();
+    //Set up our scope player and enemy
+    $scope.player = initPokemon[0];
+    $scope.enemy = initPokemon[1];
 
-        //Set up our scope player and enemy
-        $scope.player = initPokemon[0];
-        $scope.enemy = initPokemon[1];
+    //Our Meter percentages
+    $scope.playerHealth = {
+        hp: 0,
+        percent: "0%"
+    };
+    $scope.enemyHealth = {
+        hp: 0,
+        percent: "0%"
+    };
 
-        //Our Meter percentages
-        $scope.playerHealth = {
-            hp: 0,
-            percent: "0%"
-        };
-        $scope.enemyHealth = {
-            hp: 0,
-            percent: "0%"
-        };
-
-        //Our attacking boolean
-        $scope.noAttack = true;
-    }, 10);
+    //Our attacking boolean
+    $scope.noAttack = true;
 
     //First get our pokemon
     $scope.init = function() {
+
+        //start loading
+        loadingSpinner.startLoading();
 
         //Dont need a payload
         var payload = {};
@@ -202,6 +199,30 @@ angular.module('angularmonApp')
         })
     }
     $scope.init();
+
+    //Function to reset our pokemon
+    $scope.resetPokemon = function() {
+
+        //Set up our scope player and enemy
+        $scope.player = initPokemon[0];
+        $scope.enemy = initPokemon[1];
+
+        //Our Meter percentages
+        $scope.playerHealth = {
+            hp: 0,
+            percent: "0%"
+        };
+        $scope.enemyHealth = {
+            hp: 0,
+            percent: "0%"
+        };
+
+        //Our attacking boolean
+        $scope.noAttack = true;
+
+        //Now call the init functions
+        $scope.init();
+    }
 
     //Function to use an attack
     $scope.attack = function(moveIndex) {

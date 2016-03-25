@@ -9,9 +9,10 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+    margin-top: 20px;
 
 
-    background-image: url('../images/battlescene1.png');
+    background-image: url('../images/battlescene2.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
@@ -54,17 +55,17 @@
 
     position: relative;
     width: 200px;
-    height: 200px;
 
     &.wild {
         margin-left: auto;
-        margin-right: 100px;
-        top: 50px;
+        margin-right: 110px;
+        top: 70px;
 
     }
 
     &.player {
-        margin-left: 100px;
+        margin-left: 110px;
+        bottom: -10px;
     }
 
     .pokemon {
@@ -75,6 +76,84 @@
         img {
             background-size: 100% 100%;
             background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+    }
+}
+
+//Media queries to keep our pokemon centered
+@media (max-width: 700px) {
+
+    .battleScene {
+        min-height: 300px;
+    }
+
+    .pokemonContainer {
+
+        position: relative;
+        width: 175px;
+
+        &.wild {
+            margin-left: auto;
+            margin-right: 60px;
+            top: 70px;
+
+        }
+
+        &.player {
+            margin-left: 60px;
+            bottom: -10px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+
+    .battleScene {
+        min-height: 275px;
+    }
+
+    .pokemonContainer {
+
+        position: relative;
+        width: 150px;
+
+        &.wild {
+            margin-left: auto;
+            margin-right: 45px;
+            top: 50px;
+
+        }
+
+        &.player {
+            margin-left: 45px;
+            bottom: -10px;
+        }
+    }
+}
+
+@media (max-width: 350px) {
+
+    .battleScene {
+        min-height: 250px;
+    }
+
+    .pokemonContainer {
+
+        position: relative;
+        width: 125px;
+
+        &.wild {
+            margin-left: auto;
+            margin-right: 10px;
+            top: 60px;
+
+        }
+
+        &.player {
+            margin-left: 15px;
+            bottom: -10px;
         }
     }
 }
@@ -82,7 +161,7 @@
 //Animations for the pokemon container
 .pokemon.ng-hide-remove {
     @extend .animated;
-    @extend .lightSpeedIn;
+    @extend .fadeIn;
 }
 
 .meter.ng-hide-remove {
@@ -104,31 +183,31 @@
 
 .meter {
 
-    width: 200px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
 	height: 20px;  /* Can be anything */
 	background: #555;
 	-moz-border-radius: 25px;
 	-webkit-border-radius: 25px;
 	border-radius: 25px;
-	padding: 10px;
 	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 
     span {
 
       display: block;
       height: 20px;
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
       background-color: rgb(43,194,83);
       box-shadow:
         inset 0 2px 9px  rgba(255,255,255,0.3),
         inset 0 -2px 6px rgba(0,0,0,0.4);
-      position: absolute;
+      position: relative;
       overflow: hidden;
       top: 0px;
-      left: 0px;
       transition: width 1s;
 
       .yellow {

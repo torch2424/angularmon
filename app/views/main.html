@@ -8,7 +8,7 @@
 </div>
 
 <h1
-class = "center"
+class = "center enemyName"
 ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
 
 <!-- Our Scene -->
@@ -19,7 +19,7 @@ ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
     class = "pokemonContainer wild">
         <div
         ng-show = "enemyHealth.hp > 0"
-        class="meter animted">
+        class="meter animated">
             <span
             ng-style="{'width': enemyHealth.percent}"></span>
         </div>
@@ -52,7 +52,8 @@ ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
 <h2 class = "center">{{message}}</h2>
 
 <!-- Play Again? -->
-<h2 class = "center">
+<h2 class = "center"
+ng-if="playerHealth.hp < 0">
     <a ng-click="resetPokemon()">
         Would you like to play again?
     </a>
