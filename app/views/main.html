@@ -53,7 +53,8 @@ ng-show="enemyHealth.hp">A wild {{enemy.name}} has appeared!</h1>
 
 <!-- Play Again? -->
 <h2 class = "center"
-ng-if="playerHealth.hp < 0">
+ng-if="playerHealth.hp < 0 ||
+    enemyHealth.hp < 0">
     <a ng-click="resetPokemon()">
         Would you like to play again?
     </a>

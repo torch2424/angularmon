@@ -72,6 +72,15 @@
 
         width: 100%;
         height: 100%;
+        display: block !important;
+
+        -webkit-transition: opacity 1s; /* Safari */
+        transition: opacity 1s;
+
+        &.ng-hide {
+            display: block !important;
+            opacity: 0 !important;
+        }
 
         img {
             background-size: 100% 100%;

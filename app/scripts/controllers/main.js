@@ -273,7 +273,7 @@ angular.module('angularmonApp')
                 $scope.playerHealth.percent = 0;
 
                 //Set the message to you win
-                $scope.message = $scope.player.name + "has fainted...";
+                $scope.message = $scope.player.name + " has fainted...";
 
                 //Return to get out of here
                 return;
