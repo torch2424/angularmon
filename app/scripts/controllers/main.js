@@ -194,7 +194,7 @@ angular.module('angularmonApp')
             $scope.noAttack = false;
 
             //Our message to the player
-            $scope.message = "What will you do?"
+            $scope.message = "Go " + $scope.player.name + "! What will you do?"
         },
         //Errors
         function(error) {
@@ -223,7 +223,7 @@ angular.module('angularmonApp')
             $scope.enemyHealth.percent = 0;
 
             //Set the message to you win
-            $scope.message = "YOU WIN!!! Please reload the page to play again!";
+            $scope.message = "You win!!!";
 
             //Return to get out of here
             return;
@@ -252,7 +252,7 @@ angular.module('angularmonApp')
                 $scope.playerHealth.percent = 0;
 
                 //Set the message to you win
-                $scope.message = "you is faint...Please reload the page to play again!";
+                $scope.message = $scope.player.name + "has fainted...";
 
                 //Return to get out of here
                 return;
@@ -269,7 +269,7 @@ angular.module('angularmonApp')
                 $scope.noAttack = false;
 
                 //Our message to the player
-                $scope.message = "What will you do?"
+                $scope.message = "Go " + $scope.player.name + "! What will you do?"
             }, 1500);
         }, 1500);
 

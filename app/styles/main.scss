@@ -25,16 +25,19 @@ body {
 }
 
 .navbar {
-    color: $standardInverse;
+    color: $standard;
     background-color: $navBg;
     border-color: $navBg;
     padding-right: 10px;
-    padding-left: 10px;
-
-    box-shadow: 0px 7px 15px $standard;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px $standard;
 
     a {
-        color: $standardInverse !important;
+        color: $standard !important;
+        margin-left: 5px;
+        margin-right: 5px;
+
     }
 
     //Shadow to look material
