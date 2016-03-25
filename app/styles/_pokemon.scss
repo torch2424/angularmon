@@ -133,6 +133,31 @@
     }
 }
 
+@media (max-width: 420px) {
+
+    .battleScene {
+        min-height: 265px;
+    }
+
+    .pokemonContainer {
+
+        position: relative;
+        width: 135px;
+
+        &.wild {
+            margin-left: auto;
+            margin-right: 30px;
+            top: 50px;
+
+        }
+
+        &.player {
+            margin-left: 35px;
+            bottom: -10px;
+        }
+    }
+}
+
 @media (max-width: 350px) {
 
     .battleScene {
