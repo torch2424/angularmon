@@ -51,6 +51,9 @@
     }
 }
 
+//Player Bottom
+$wildTop: 70px;
+$playerBottom: -30px;
 .pokemonContainer {
 
     position: relative;
@@ -59,13 +62,13 @@
     &.wild {
         margin-left: auto;
         margin-right: 110px;
-        top: 70px;
+        top: $wildTop;
 
     }
 
     &.player {
-        margin-left: 110px;
-        bottom: -10px;
+        margin-left: 115px;
+        bottom: $playerBottom;
     }
 
     .pokemon {
@@ -106,13 +109,13 @@
         &.wild {
             margin-left: auto;
             margin-right: 60px;
-            top: 70px;
+            top: $wildTop;
 
         }
 
         &.player {
             margin-left: 60px;
-            bottom: -10px;
+            bottom: $playerBottom;
         }
     }
 }
@@ -137,7 +140,7 @@
 
         &.player {
             margin-left: 45px;
-            bottom: -10px;
+            bottom: $playerBottom;
         }
     }
 }

@@ -16,7 +16,8 @@
         <a class="navbar-brand navText">AngularMon</a>
       </div>
 
-      <div class="collapse navbar-collapse animated fadeInDown"
+      <div ng-class = "{collapse: collapseNav && isMobile()}"
+      class="navbar-collapse animated fadeInDown"
       id="js-navbar-collapse"
       ng-show = "!collapsed || !isMobile()">
 
