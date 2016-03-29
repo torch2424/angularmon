@@ -196,6 +196,8 @@ angular.module('angularmonApp')
         //Errors
         function(error) {
 
+            //Show the error in the loading spinner
+            loadingSpinner.addError(error);
         })
     }
     $scope.init();

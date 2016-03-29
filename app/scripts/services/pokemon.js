@@ -10,7 +10,7 @@
 angular.module('angularmonApp')
   .service('PokemonApi', function ($resource) {
 
-      return $resource('http://localhost:3000/angularmon', {}, {
+      return $resource('https://aaronthedev.com:3000/angularmon', {}, {
       get: {
         method: 'GET',
         params: {},

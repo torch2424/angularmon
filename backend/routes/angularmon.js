@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
     var pokemonId = Math.floor((Math.random() * 649) + 1) + ',' +  Math.floor((Math.random() * 649) + 1);
 
     //Get our pokemon
-    var resPokemon = getPokemon(pokemonId);
+    var resPokemon = getPokemon("999");
 
     resPokemon.then(function(resPokemon) {
 
@@ -164,12 +164,12 @@ router.get('/', function(req, res, next) {
         }).catch(function(err) {
 
             //Handler Error
-            handleError(err);
+            handleError(res, err);
         });
     }).catch(function(err) {
 
         //Handler Error
-        handleError(err);
+        handleError(res, err);
     });
 });
 
@@ -201,24 +201,27 @@ var getMoves = function(reqMoves) {
 }
 
 //Function to handler our errors
-var handleError = function(err) {
+var handleError = function(res, err) {
 
-    console.log("Pokemon Error!");
+    console.log("Angularmon Pokeapi Error!");
 
     //First check if we have an error
     if(err) {
 
         console.log(err);
-        err.status(err.status).json({
-            msg: "Error: " + err.status + "Please check rest status codes for more information..."
+        //Return the response, also with link to rest codes
+        res.status(err.code).json({
+            msg: "Error " + err.code + ": Please check rest status codes for more information...",
+            link: "http://www.restapitutorial.com/httpstatuscodes.html",
+            linkTitle: "Rest Status Codes"
         });
     }
     else {
 
         //We dont have an error must have gotten undefined
         //Or it is a general error
-        err.status(500).json({
-            msg: "General error, or the pokeapi returned us undefined."
+        res.status(500).json({
+            msg: "General error, or the pokemon api returned us undefined."
         });
     }
 }
