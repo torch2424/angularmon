@@ -55,7 +55,7 @@ router.get('/', function(req, res, next) {
     var pokemonId = Math.floor((Math.random() * 649) + 1) + ',' +  Math.floor((Math.random() * 649) + 1);
 
     //Get our pokemon
-    var resPokemon = getPokemon("999");
+    var resPokemon = getPokemon(pokemonId);
 
     resPokemon.then(function(resPokemon) {
 
