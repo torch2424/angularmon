@@ -34,7 +34,16 @@
       <div class = "loadingContainer"
       ng-if="loading.isLoading()">
 
-          <h2>Walking Through Tall Grass...</h2>
+          <h2 ng-if="loading.errors.length < 1">
+              Walking Through Tall Grass...
+          </h2>
+
+          <!-- Support for errors -->
+          <div ng-if="loading.errors.length > 0"
+              ng-repeat="error in loading.errors">
+
+              <h2>{{error.message}}</h2>
+          </div>
 
           <div class = "spinnerAnimation">
           </div>
