@@ -61,4 +61,18 @@ app.use(function(err, req, res, next) {
 });
 
 
+//https support
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
+var privateKey = fs.readFileSync('ssl/key.pem', 'utf8');
+var certificate = fs.readFileSync('ssl/cert.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(80);
+httpsServer.listen(443);
+
+
 module.exports = app;
