@@ -62,17 +62,18 @@ app.use(function(err, req, res, next) {
 
 
 //https support
+//following: https://jaredreich.com/blog/how-to-create-nodejs-server/
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-var privateKey = fs.readFileSync('ssl/key.pem', 'utf8');
+var privateKey = fs.readFileSync('ssl/privkey.pem', 'utf8');
 var certificate = fs.readFileSync('ssl/cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(80);
-httpsServer.listen(443);
+httpServer.listen(2423);
+httpsServer.listen(2424);
 
 
 module.exports = app;
