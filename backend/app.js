@@ -63,12 +63,19 @@ app.use(function(err, req, res, next) {
 
 //https support
 //following: https://jaredreich.com/blog/how-to-create-nodejs-server/
+//and https://github.com/RnbWd/ssltest/blob/master/bin/www
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-var privateKey = fs.readFileSync('ssl/privkey.pem', 'utf8');
-var certificate = fs.readFileSync('ssl/cert.pem', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
+var privateKey = fs.readFileSync('ssl/privkey.pem');
+var certificate = fs.readFileSync('ssl/cert.pem');
+var CACertificate = fs.readFileSync('ssl/chain.pem');
+var credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: CACertificate
+};
+
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
