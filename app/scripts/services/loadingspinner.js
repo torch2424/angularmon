@@ -68,7 +68,7 @@ angular.module('angularmonApp')
                   $timeout.cancel(timeoutErrors[0]);
                   timeoutErrors = timeoutErrors.splice(0, 1);
               }
-              errors = errors.pop();
+              if(errors.length > 1) errors = errors.pop();
 
               return false;
           },
